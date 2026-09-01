@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ashikur Rahman — Software Engineer</title>
+<title>Ashikur Rahman | Software Engineer</title>
 <meta name="description" content="Software Engineer with 6+ years across the full stack. React, React Native, NestJS, Go, AWS, DigitalOcean. Architected the Manzil fintech platform end to end.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -158,7 +158,8 @@ h1 .grad{
 .job{position:relative;padding-bottom:46px}
 .job:last-child{padding-bottom:0}
 .job::before{
-  content:"";position:absolute;left:-33px;top:8px;width:16px;height:16px;border-radius:50%;
+  content:"";position:absolute;left:-36px;top:8px;width:16px;height:16px;border-radius:50%;
+  /* -36 = line centre (8px) - timeline padding (34px) - half the dot incl. its 2px borders (10px) */
   background:var(--bg);border:2px solid var(--accent);box-shadow:0 0 0 5px var(--glow);
 }
 .job-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:6px}
@@ -203,6 +204,32 @@ ul.points li a{color:var(--accent);border-bottom:1px solid var(--accent-dim)}
 .card .link:hover{gap:11px}
 .card .link svg{width:14px;height:14px;transition:transform .2s}
 
+/* one-card grid (education) shouldn't stretch the full row */
+.cards.single{grid-template-columns:minmax(0,560px)}
+
+/* expandable experience detail */
+.more{margin-top:10px}
+/* collapsible: 0fr -> 1fr animates reliably; the inner div does the clipping */
+.more-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s cubic-bezier(.25,.8,.3,1)}
+.more-wrap>div{overflow:hidden;min-height:0}
+.more[data-open="true"] .more-wrap{grid-template-rows:1fr}
+.more-wrap ul.points{margin-top:10px}
+.more-btn{
+  display:inline-flex;align-items:center;gap:7px;cursor:pointer;margin-top:12px;
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--line);background:var(--surface);
+  border-radius:999px;padding:6px 13px;
+  transition:color .2s,border-color .2s,background .2s;
+}
+.more-btn:hover{border-color:var(--accent-dim);background:var(--surface-2)}
+.more-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.more-btn svg{width:12px;height:12px;transition:transform .32s cubic-bezier(.25,.8,.3,1)}
+.more[data-open="true"] .more-btn svg{transform:rotate(180deg)}
+.more .lbl-less{display:none}
+.more[data-open="true"] .lbl-more{display:none}
+.more[data-open="true"] .lbl-less{display:inline}
+@media print{.more-wrap{grid-template-rows:1fr}.more-btn{display:none}}
+
 /* ---------- skills ---------- */
 .skillgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:18px;margin-top:52px}
 .skillbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;transition:transform .3s,border-color .3s,box-shadow .3s}
@@ -224,6 +251,9 @@ ul.points li a{color:var(--accent);border-bottom:1px solid var(--accent-dim)}
 .contact-card h2{font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.5rem);font-weight:600;letter-spacing:-.02em;margin-bottom:14px;position:relative}
 .contact-card p{color:var(--muted);max-width:48ch;margin:0 auto 28px;position:relative}
 .contact-links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;position:relative}
+/* long unbreakable strings (email, profile URLs) must not spill into the card padding */
+.contact-links .btn{max-width:100%;min-width:0;overflow-wrap:anywhere;text-align:left}
+.contact-links .btn svg{flex:0 0 auto}
 footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-size:.85rem}
 .foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
 .foot .mono{font-family:var(--font-mono);font-size:.78rem}
@@ -253,6 +283,10 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto}
   .reveal{opacity:1;transform:none}
+  /* deliberate exception: the expand/collapse keeps its animation so the
+     "See more" toggle reads as a reveal rather than a jump */
+  .more-wrap{transition-duration:.42s!important}
+  .more-btn svg{transition-duration:.32s!important}
 }
 @media print{header{display:none}}
 </style>
@@ -267,6 +301,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </div>
     <button class="icon-btn" id="theme-btn" aria-label="Toggle colour theme">
@@ -290,7 +325,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
       <p class="bio">
         Software Engineer, <strong>6+ years</strong> across the full stack, working offshore
         with a Canadian product team. Architected a <strong>fintech platform</strong> end to end as its
-        first engineer — React and React Native on the front, NestJS microservices on AWS behind it,
+        first engineer, with React and React Native on the front and NestJS microservices on AWS behind it,
         built <strong>test-first</strong> throughout.
       </p>
       <div class="cta">
@@ -322,14 +357,14 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 
 <!-- ============ ABOUT ============ -->
 <section id="about" class="wrap reveal">
-  <div class="eyebrow">01 — About</div>
+  <div class="eyebrow">01 · About</div>
   <h2 class="title">Full stack, first engineer, test-first.</h2>
   <p class="lede">
-    I joined Sazim as its first engineer and built <a href="https://manzil.io" target="_blank" rel="noopener" style="color:var(--accent);border-bottom:1px solid var(--accent-dim)">manzil.io</a>
-    from an empty repo into a four-product Canadian fintech platform — Invest, Homes, Wills and Money —
-    across web and native mobile. Since then I've evolved the stack from Flask/React into an Nx monorepo of
-    Dockerized NestJS microservices, written the SQL behind the company's analytics, reviewed PRs,
-    interviewed candidates, and mentored new hires through probation.
+    I build products end to end. Brought on as the first engineer on a Canadian fintech platform,
+    I took it from an empty repo to four live products across web and native mobile, then grew the
+    architecture from a single Flask and React app into an Nx monorepo of Dockerized NestJS microservices.
+    I write the SQL behind the analytics the business reports on, review pull requests, interview
+    engineers, and mentor new hires through their probation.
   </p>
   <div class="skillgrid" style="margin-top:38px">
     <div class="skillbox">
@@ -340,16 +375,12 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
       <h4>What I reach for</h4>
       <p style="color:var(--muted);font-size:.95rem">TypeScript end to end, Go when throughput matters, Python where it already lives. Linux as a daily driver, Docker everywhere, AI-assisted workflows to move faster.</p>
     </div>
-    <div class="skillbox">
-      <h4>Education</h4>
-      <p style="color:var(--muted);font-size:.95rem"><strong style="color:var(--text)">B.Sc. Computer Science &amp; Engineering</strong><br>Independent University, Bangladesh (IUB)<br><span style="font-family:var(--font-mono);font-size:.82rem;color:var(--faint)">Dec 2021 · CGPA 3.23 / 4.00</span></p>
-    </div>
   </div>
 </section>
 
 <!-- ============ EXPERIENCE ============ -->
 <section id="experience" class="wrap reveal">
-  <div class="eyebrow">02 — Experience</div>
+  <div class="eyebrow">02 · Experience</div>
   <h2 class="title">Where I've built things</h2>
 
   <div class="timeline">
@@ -361,16 +392,25 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
       <div class="org">Sazim Tech Ltd · <a href="https://www.sazim.io/" target="_blank" rel="noopener">sazim.io</a></div>
       <p class="blurb">Software company delivering products for clients in Canada &amp; the USA</p>
       <ul class="points">
-        <li>Joined as the <strong>first engineer</strong> and architected <a href="https://manzil.io" target="_blank" rel="noopener">manzil.io</a> for <a href="https://www.manzil.co/ca" target="_blank" rel="noopener">Manzil</a>, a Canadian fintech — <strong>Invest</strong>, <strong>Homes</strong> (mortgage), <strong>Wills</strong> and <strong>Money</strong>, across web and native mobile.</li>
+        <li>Joined as the <strong>first engineer</strong> and architected <a href="https://manzil.io" target="_blank" rel="noopener">manzil.io</a> for <a href="https://www.manzil.co/ca" target="_blank" rel="noopener">Manzil</a>, a Canadian fintech: <strong>Invest</strong>, <strong>Homes</strong> (mortgage), <strong>Wills</strong> and <strong>Money</strong>, across web and native mobile.</li>
         <li>Built the web portal in React and Redux and the iOS/Android apps in React Native, sharing types and API clients from an <strong>Nx monorepo</strong>.</li>
         <li>Practice <strong>test-driven development</strong> across the whole web platform, writing tests alongside every feature rather than after.</li>
         <li>Evolved the initial Flask/React stack into an Nx monorepo of <strong>Dockerized NestJS microservices</strong>, with the original Flask backend still serving production alongside it.</li>
-        <li>Fixed an AWS Lambda hitting the <strong>15-minute execution ceiling</strong> — offloaded work to an async queue, then rewrote it in <strong>Go with goroutines</strong>, cutting runtime well under the limit.</li>
-        <li>Built <strong>Stripe</strong> payments and subscription billing end to end for the Wills product.</li>
-        <li>Write the SQL behind the company's <strong>Metabase</strong> analytics, turning production data into the dashboards the business reports on.</li>
-        <li>Oversaw delivery of <strong>Hisba</strong>, a separate product, directing two engineers through the build.</li>
-        <li>Review pull requests, interview engineering candidates, and mentor new hires and trainees through probation.</li>
       </ul>
+      <div class="more" data-open="false">
+        <div class="more-wrap" id="sazim-more"><div>
+          <ul class="points">
+            <li>Fixed an AWS Lambda hitting the <strong>15-minute execution ceiling</strong>. Offloaded work to an async queue, then rewrote it in <strong>Go with goroutines</strong>, cutting runtime well under the limit.</li>
+            <li>Built <strong>Stripe</strong> payments and subscription billing end to end for the Wills product.</li>
+            <li>Write the SQL behind the company's <strong>Metabase</strong> analytics, turning production data into the dashboards the business reports on.</li>
+            <li>Oversaw delivery of <strong>Hisba</strong>, a separate product, directing two engineers through the build.</li>
+            <li>Review pull requests, interview engineering candidates, and mentor new hires and trainees through probation.</li>
+          </ul>
+        </div></div>
+        <button class="more-btn" type="button" aria-expanded="false" aria-controls="sazim-more">
+          <span class="lbl-more">See more</span><span class="lbl-less">See less</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+      </div>
     </article>
 
     <article class="job">
@@ -389,7 +429,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
       </div>
       <div class="org">Aveneur Solutions</div>
       <ul class="points">
-        <li>Delivered client web products on ASP.NET Core and React.js — <strong>Homeland</strong>, an affordable housing platform (Gazipur) on a <strong>CQRS</strong> architecture.</li>
+        <li>Delivered client web products on ASP.NET Core and React.js, including <strong>Homeland</strong>, an affordable housing platform (Gazipur) on a <strong>CQRS</strong> architecture.</li>
         <li>Built <strong>Senoark</strong>, a marketing consultancy site, and the <strong>Aveneur Solutions</strong> company site in TypeScript.</li>
       </ul>
     </article>
@@ -407,7 +447,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 
 <!-- ============ PROJECTS ============ -->
 <section id="projects" class="wrap reveal">
-  <div class="eyebrow">03 — Projects</div>
+  <div class="eyebrow">03 · Projects</div>
   <h2 class="title">Things built outside the day job</h2>
 
   <div class="cards">
@@ -416,7 +456,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
         <h3>The Deltagram</h3>
         <span class="when">Aug 2025 — Jan 2026</span>
       </div>
-      <p>News platform for a Bangladeshi audience, built with a friend outside regular work. Scheduled article publishing runs on a BullMQ job queue — still in production today.</p>
+      <p>News platform for a Bangladeshi audience, built with a friend outside regular work. Scheduled article publishing runs on a BullMQ job queue and is still in production today.</p>
       <div class="tags">
         <span class="tag">React.js</span><span class="tag">NestJS</span><span class="tag">BullMQ</span>
         <span class="tag">Docker</span><span class="tag">DigitalOcean</span><span class="tag">Cloudflare CDN</span>
@@ -440,7 +480,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 
 <!-- ============ SKILLS ============ -->
 <section id="skills" class="wrap reveal">
-  <div class="eyebrow">04 — Toolkit</div>
+  <div class="eyebrow">04 · Toolkit</div>
   <h2 class="title">What I work with</h2>
 
   <div class="skillgrid">
@@ -461,9 +501,26 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
   </div>
 </section>
 
+<!-- ============ EDUCATION ============ -->
+<section id="education" class="wrap reveal">
+  <div class="eyebrow">05 · Education</div>
+  <h2 class="title">Where I studied</h2>
+
+  <div class="cards single">
+    <article class="card">
+      <div class="card-top">
+        <h3>B.Sc. in Computer Science &amp; Engineering</h3>
+        <span class="when">Dec 2021</span>
+      </div>
+      <p>Independent University, Bangladesh (IUB)</p>
+      <div class="tags"><span class="tag">CGPA 3.23 / 4.00</span></div>
+    </article>
+  </div>
+</section>
+
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="wrap reveal">
-  <div class="eyebrow">05 — Contact</div>
+  <div class="eyebrow">06 · Contact</div>
   <div class="contact-card">
     <h2>Let's build something.</h2>
     <p>Open to engineering roles, remote or offshore. Fastest way to reach me is email.</p>
@@ -526,7 +583,7 @@ var navObserver = new IntersectionObserver(function (entries) {
     links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
   });
 }, { rootMargin: '-45% 0px -50% 0px' });
-['about', 'experience', 'projects', 'skills', 'contact'].forEach(function (id) {
+['about', 'experience', 'projects', 'skills', 'education', 'contact'].forEach(function (id) {
   var el = document.getElementById(id); if (el) navObserver.observe(el);
 });
 
@@ -558,6 +615,16 @@ var ri = 0, ci = 0, deleting = false;
   else if (deleting && ci === 0) { deleting = false; ri = (ri + 1) % roles.length; delay = 320; }
   setTimeout(type, delay);
 })();
+
+// ---- collapsible experience detail ----
+document.querySelectorAll('.more').forEach(function (box) {
+  var btn = box.querySelector('.more-btn');
+  btn.addEventListener('click', function () {
+    var open = box.dataset.open !== 'true';
+    box.dataset.open = String(open);
+    btn.setAttribute('aria-expanded', String(open));
+  });
+});
 
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
