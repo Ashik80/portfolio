@@ -5,10 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ashikur Rahman | Software Engineer</title>
 <meta name="description" content="Software Engineer with 6+ years across the full stack. React, React Native, NestJS, Go, AWS, DigitalOcean. Architected the Manzil fintech platform end to end.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="icon" type="image/png" sizes="128x128" href="assets/favicon-128.png">
+<link rel="apple-touch-icon" sizes="256x256" href="assets/favicon-256.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@400;450;500;600&family=Fragment+Mono&display=swap" rel="stylesheet">
+<!-- logo mark only: JetBrains Mono Bold subset to the four glyphs "~/ar" (~1.9KB) -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&text=%7E%2Far&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#080d0f; --surface:#111a1e; --surface-2:#162228;
@@ -77,8 +81,13 @@ header.stuck{
   border-bottom-color:var(--line);
 }
 nav{max-width:var(--max);margin:0 auto;padding:16px 28px;display:flex;align-items:center;gap:20px}
-.brand{font-family:var(--font-head);font-weight:700;letter-spacing:-.02em;font-size:1.05rem;display:flex;align-items:center;gap:10px}
-.brand i{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--glow);display:inline-block}
+.brand{
+  display:inline-flex;align-items:center;
+  font-family:'JetBrains Mono',var(--font-mono);font-weight:700;font-size:32px;line-height:1;letter-spacing:-.04em;
+}
+.brand-path{color:var(--accent)}
+.brand-name{color:var(--text)}
+.brand-cursor{width:.5em;height:.86em;background:var(--accent);margin-left:.1em;display:inline-block}
 .navlinks{display:flex;gap:6px;margin-left:auto}
 .navlinks a{
   font-size:.88rem;color:var(--muted);padding:8px 13px;border-radius:8px;
@@ -270,6 +279,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
   .portrait-art{width:100%;max-width:420px;margin-inline:auto}
   /* .navlinks leaves the flow here, so its margin-left:auto no longer pushes -- move it to the buttons */
   #theme-btn{margin-left:auto}
+  .brand{font-size:28px}
   .navlinks{
     position:fixed;inset:64px 12px auto 12px;flex-direction:column;gap:2px;padding:12px;
     background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
@@ -296,7 +306,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 
 <header id="hdr">
   <nav>
-    <a href="#top" class="brand"><i></i>Ashikur&nbsp;Rahman</a>
+    <a href="#top" class="brand" aria-label="Ashikur Rahman, home"><span class="brand-path">~/</span><span class="brand-name">ar</span><i class="brand-cursor"></i></a>
     <div class="navlinks" id="navlinks">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
