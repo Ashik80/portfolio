@@ -14,9 +14,8 @@
   --bg:#080d0f; --surface:#111a1e; --surface-2:#162228;
   --line:#1e2d33; --line-2:#2a3d45;
   --text:#e8f0f2; --muted:#93a8ae; --faint:#6b8188;
-  --accent:#4fd6c4; --accent-2:#7ae5d6; --accent-dim:#1f5c6b;
-  --warm:#e8703a;
-  --glow:rgba(79,214,196,.16);
+  --accent:#f5b642; --accent-2:#fcd34d; --on-accent:#2a1c00;
+  --warm:#fb7185;
   --shadow:0 20px 60px -20px rgba(0,0,0,.7);
   --font-head:'Space Grotesk',system-ui,sans-serif;
   --font-body:'Geist',system-ui,-apple-system,sans-serif;
@@ -27,11 +26,16 @@
   --bg:#f6f9f8; --surface:#ffffff; --surface-2:#f2f7f6;
   --line:#dde7e6; --line-2:#c6d6d5;
   --text:#12201f; --muted:#4f6a6d; --faint:#7b9295;
-  --accent:#0f7f76; --accent-2:#0b625c; --accent-dim:#bfe5df;
-  --warm:#c1440e;
-  --glow:rgba(15,127,118,.12);
+  --accent:#a86a06; --accent-2:#875306; --on-accent:#ffffff;
+  --warm:#be123c;
   --shadow:0 20px 50px -24px rgba(20,60,60,.28);
 }
+/* derived from --accent, so a palette only needs accent / accent-2 / on-accent */
+:root,[data-theme="light"]{
+  --accent-dim:color-mix(in srgb,var(--accent) 40%,var(--bg));
+  --glow:color-mix(in srgb,var(--accent) 16%,transparent);
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
 /* clip, not hidden: the rotating .portrait::before glow grows its own bounding box
    and would otherwise widen the scroll area, dragging the fixed header with it */
@@ -126,10 +130,9 @@ h1 .grad{
 .btn:hover{transform:translateY(-2px);border-color:var(--line-2)}
 .btn.primary{
   background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  color:#05201d;border-color:transparent;font-weight:600;
+  color:var(--on-accent);border-color:transparent;font-weight:600;
 }
 .btn.primary:hover{box-shadow:0 14px 34px -10px var(--glow),0 0 0 1px var(--accent)}
-[data-theme="light"] .btn.primary{color:#fff}
 .btn svg{width:17px;height:17px}
 .hero-grid>*{min-width:0}
 .stats{display:grid;grid-template-columns:repeat(2,1fr);column-gap:26px;row-gap:22px;padding-top:28px;border-top:1px solid var(--line)}
@@ -138,16 +141,14 @@ h1 .grad{
 .stat b{display:block;font-family:var(--font-head);font-size:1rem;font-weight:600;letter-spacing:-.01em;color:var(--text);line-height:1.45}
 
 .portrait{position:relative;justify-self:center}
-.portrait img{
-  width:min(300px,64vw);aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;
-  border-radius:26px;border:1px solid var(--line-2);box-shadow:var(--shadow);
-}
+.portrait-art{width:min(340px,70vw);height:auto;display:block}
+/* the blob behind the cutout follows the accent */
+.portrait-blob{fill:var(--accent);transition:fill .35s ease}
 .portrait::before{
-  content:"";position:absolute;inset:-14px;border-radius:34px;z-index:-1;
-  background:conic-gradient(from 140deg,var(--accent),transparent 30%,var(--warm) 55%,transparent 78%,var(--accent));
-  opacity:.5;filter:blur(22px);animation:spin 14s linear infinite;
+  content:"";position:absolute;inset:-8% -12%;z-index:-1;border-radius:50%;
+  background:radial-gradient(circle at 50% 45%,var(--glow),transparent 70%);
+  filter:blur(26px);
 }
-@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ---------- cards / experience ---------- */
 .timeline{position:relative;margin-top:52px;padding-left:34px}
@@ -266,7 +267,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:44px}
   .portrait{order:-1;justify-self:stretch;width:100%}
-  .portrait img{width:100%;max-width:520px;aspect-ratio:1;object-position:50% 15%}
+  .portrait-art{width:100%;max-width:420px;margin-inline:auto}
   /* .navlinks leaves the flow here, so its margin-left:auto no longer pushes -- move it to the buttons */
   #theme-btn{margin-left:auto}
   .navlinks{
@@ -350,7 +351,22 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
       </div>
     </div>
     <div class="portrait">
-      <img src="assets/photo.jpg" alt="Portrait of Ashikur Rahman" width="300" height="300">
+      <svg class="portrait-art" viewBox="0 0 568.10547 715.6499" role="img" aria-label="Portrait of Ashikur Rahman">
+        <defs>
+          <clipPath id="pa-blob" clipPathUnits="userSpaceOnUse">
+            <rect width="588.58014" height="715.6499" x="222.31847" y="-313.45917"/>
+          </clipPath>
+          <clipPath id="pa-photo" clipPathUnits="userSpaceOnUse">
+            <rect width="588.58014" height="715.6499" x="222.31847" y="-313.45917" transform="rotate(-6.1865594)"/>
+          </clipPath>
+        </defs>
+        <g transform="translate(-235.55489,313.45917)">
+          <path class="portrait-blob" clip-path="url(#pa-blob)" d="m 320.06836,358.65327 c -23.68749,-6.5515 -43.80023,-41.45159 -65.83011,-69.5521 -15.13826,-37.652 -23.59896,-81.5046 -15.62429,-140.61862 25.63986,-69.841152 41.66478,-109.773707 76.91959,-174.270947 0,0 48.29266,-80.218613 106.96629,-105.764423 62.31821,-27.13262 124.63643,-42.73097 186.95464,-53.49072 71.64747,3.40693 95.7412,19.80998 130.17077,35.67277 36.73891,21.83614 51.78931,75.425287 54.25342,100.377319 18.03779,107.306938 5.90714,118.416401 4.34904,164.111591 -14.03547,34.92334 -33.33602,88.44416 -62.12327,118.69706 -50.35286,45.83833 -99.46527,88.35744 -159.76542,122.5906 0,0 -219.01273,61.13902 -256.27066,2.24747 z"/>
+          <image href="assets/ashik.webp" width="444.56747" height="813.29285"
+                 x="322.78098" y="-353.83438" preserveAspectRatio="none"
+                 transform="rotate(6.1865594)" clip-path="url(#pa-photo)"/>
+        </g>
+      </svg>
     </div>
   </div>
 </section>
