@@ -219,6 +219,9 @@ ul.points li a{color:var(--accent);border-bottom:1px solid var(--accent-dim)}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .card h3{font-family:var(--font-head);font-size:1.22rem;font-weight:600;letter-spacing:-.015em}
 .card p{color:var(--muted);font-size:.95rem;margin-bottom:16px}
+.tag.star{display:inline-flex;align-items:center;gap:5px;color:var(--accent);border-color:var(--accent-dim)}
+.tag.star svg{width:11px;height:11px}
+.card code{font-family:var(--font-mono);font-size:.86em;color:var(--text);background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
 .card .when{margin:0}
 .tags{display:flex;flex-wrap:wrap;gap:7px}
 .tag{
@@ -329,6 +332,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
+      <a href="#opensource">Open source</a>
       <a href="#skills">Skills</a>
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
@@ -522,9 +526,74 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
   </div>
 </section>
 
+<!-- ============ OPEN SOURCE ============ -->
+<section id="opensource" class="wrap reveal">
+  <div class="eyebrow">04 · Open source</div>
+  <h2 class="title">Tools I've published</h2>
+  <p class="lede">Small, self-contained tools built to scratch my own itch, each in whichever language suited the job.</p>
+
+  <div class="cards">
+    <article class="card">
+      <div class="card-top">
+        <h3>VimExplorer</h3>
+        <span class="when">Vim script</span>
+      </div>
+      <p>File explorer for Vim in the style of oil.nvim. Edit the filesystem like a buffer: rename, delete, create, copy and move entries by editing text, then apply everything with <code>:w</code>. Ships hidden-file and detail toggles, and its own syntax and help docs.</p>
+      <div class="tags">
+        <span class="tag star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2l-5-4.9 6.9-1z"/></svg> 12 stars</span><span class="tag">Vim script</span><span class="tag">Plugin</span><span class="tag">Buffer-as-filesystem</span>
+      </div>
+      <a class="link" href="https://github.com/Ashik80/VimExplorer" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0C17.6 5 18.6 5.3 18.6 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+        Ashik80/VimExplorer
+      </a>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <h3>oauth2jwtgen</h3>
+        <span class="when">Go</span>
+      </div>
+      <p>Package for issuing OAuth2 JWTs when building an auth provider. Signs with HMAC or RSA, ships endpoint wrappers, and keeps storage pluggable behind a <code>TokenStore</code> interface. Implements the Resource Owner Password Credentials grant.</p>
+      <div class="tags">
+        <span class="tag">Go</span><span class="tag">OAuth2</span><span class="tag">JWT</span><span class="tag">HMAC / RSA</span>
+      </div>
+      <a class="link" href="https://github.com/Ashik80/oauth2jwtgen" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0C17.6 5 18.6 5.3 18.6 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+        Ashik80/oauth2jwtgen
+      </a>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <h3>bmigrate</h3>
+        <span class="when">Bash</span>
+      </div>
+      <p>PostgreSQL migration CLI written in pure Bash, with no dependency beyond <code>psql</code>. Generates timestamped up/down pairs and applies them transactionally, with database init, rollback and drop built in.</p>
+      <div class="tags">
+        <span class="tag">Bash</span><span class="tag">PostgreSQL</span><span class="tag">CLI</span><span class="tag">Migrations</span>
+      </div>
+      <a class="link" href="https://github.com/Ashik80/bmigrate" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0C17.6 5 18.6 5.3 18.6 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+        Ashik80/bmigrate
+      </a>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <h3>scaff</h3>
+        <span class="when">Rust</span>
+      </div>
+      <p>Scaffolding CLI for web-component front ends, written in Rust. Generates pages and components from a single command, compiles the stylesheet, and serves the result from a built-in dev server on axum and tokio.</p>
+      <div class="tags">
+        <span class="tag">Rust</span><span class="tag">Axum</span><span class="tag">Tokio</span><span class="tag">Web Components</span>
+      </div>
+      <a class="link" href="https://github.com/Ashik80/scaff" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.4-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0C17.6 5 18.6 5.3 18.6 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg>
+        Ashik80/scaff
+      </a>
+    </article>
+  </div>
+</section>
+
 <!-- ============ SKILLS ============ -->
 <section id="skills" class="wrap reveal">
-  <div class="eyebrow">04 · Toolkit</div>
+  <div class="eyebrow">05 · Toolkit</div>
   <h2 class="title">What I work with</h2>
 
   <div class="skillgrid">
@@ -547,7 +616,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 
 <!-- ============ EDUCATION ============ -->
 <section id="education" class="wrap reveal">
-  <div class="eyebrow">05 · Education</div>
+  <div class="eyebrow">06 · Education</div>
   <h2 class="title">Where I studied</h2>
 
   <div class="cards single">
@@ -564,7 +633,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="wrap reveal">
-  <div class="eyebrow">06 · Contact</div>
+  <div class="eyebrow">07 · Contact</div>
   <div class="contact-card">
     <h2>Let's build something.</h2>
     <p>Open to engineering roles, remote or offshore. Fastest way to reach me is email.</p>
@@ -627,7 +696,7 @@ var navObserver = new IntersectionObserver(function (entries) {
     links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id); });
   });
 }, { rootMargin: '-45% 0px -50% 0px' });
-['about', 'experience', 'projects', 'skills', 'education', 'contact'].forEach(function (id) {
+['about', 'experience', 'projects', 'opensource', 'skills', 'education', 'contact'].forEach(function (id) {
   var el = document.getElementById(id); if (el) navObserver.observe(el);
 });
 
