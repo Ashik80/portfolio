@@ -235,9 +235,6 @@ ul.points li a{color:var(--accent);border-bottom:1px solid var(--accent-dim)}
 .card .link:hover{gap:11px}
 .card .link svg{width:14px;height:14px;transition:transform .2s}
 
-/* one-card grid (education) shouldn't stretch the full row */
-.cards.single{grid-template-columns:minmax(0,560px)}
-
 /* expandable experience detail */
 .more{margin-top:10px}
 /* collapsible: 0fr -> 1fr animates reliably; the inner div does the clipping */
@@ -406,7 +403,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 <!-- ============ ABOUT ============ -->
 <section id="about" class="wrap reveal">
   <div class="eyebrow">01 · About</div>
-  <h2 class="title">Full stack, first engineer, test-first.</h2>
+  <h2 class="title">What I do</h2>
   <p class="lede">
     I build products end to end. Brought on as the first engineer on a Canadian fintech platform,
     I took it from an empty repo to four live products across web and native mobile, then grew the
@@ -504,7 +501,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
         <h3>The Deltagram</h3>
         <span class="when">Aug 2025 — Jan 2026</span>
       </div>
-      <p>News platform for a Bangladeshi audience, built with a friend outside regular work. Scheduled article publishing runs on a BullMQ job queue and is still in production today.</p>
+      <p>News platform for a Bangladeshi audience, built with a small team. Scheduled article publishing runs on a BullMQ job queue and is still in production today.</p>
       <div class="tags">
         <span class="tag">React.js</span><span class="tag">NestJS</span><span class="tag">BullMQ</span>
         <span class="tag">Docker</span><span class="tag">DigitalOcean</span><span class="tag">Cloudflare CDN</span>
@@ -619,14 +616,39 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
   <div class="eyebrow">06 · Education</div>
   <h2 class="title">Where I studied</h2>
 
-  <div class="cards single">
+  <div class="cards">
     <article class="card">
       <div class="card-top">
         <h3>B.Sc. in Computer Science &amp; Engineering</h3>
         <span class="when">Dec 2021</span>
       </div>
-      <p>Independent University, Bangladesh (IUB)</p>
+      <p>Independent University, Bangladesh (IUB). Studied through the first two years of my professional career, finishing the degree while already building and shipping client products full time.</p>
       <div class="tags"><span class="tag">CGPA 3.23 / 4.00</span></div>
+      <a class="link" href="https://iub.ac.bd/" target="_blank" rel="noopener">
+        iub.ac.bd
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <h3>International GED</h3>
+        <span class="when">Jul 2016</span>
+      </div>
+      <p>High school equivalency certificate, taken at PIE International Education across Math, Science, Social Studies and Language Arts.</p>
+      <div class="tags"><span class="tag">3040 / 4000</span></div>
+      <a class="link" href="https://mypiebd.com/" target="_blank" rel="noopener">
+        mypiebd.com
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <h3>A Levels &amp; O Levels</h3>
+        <span class="when">2013 — 2015</span>
+      </div>
+      <p>Dhanmondi Tutorial, my school throughout. O Levels in 2013, A Levels in 2015.</p>
     </article>
   </div>
 </section>
