@@ -124,14 +124,25 @@ nav{max-width:var(--max);margin:0 auto;padding:16px 28px;display:flex;align-item
 /* ---------- hero ---------- */
 .hero{min-height:100svh;display:flex;align-items:center;padding-block:120px 80px}
 .hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:64px;align-items:center;width:100%}
-.status{
-  display:inline-flex;align-items:center;gap:9px;font-size:.8rem;color:var(--muted);
-  border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 15px;margin-bottom:26px;
-  font-family:var(--font-mono);letter-spacing:.02em;
+
+
+
+/* live local time, no pill chrome: mono numerals + a small meta label */
+.localtime{
+  display:inline-flex;align-items:center;gap:12px;margin-bottom:26px;
+  font-family:var(--font-mono);
 }
-.pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);position:relative}
-.pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--accent);animation:ping 2s cubic-bezier(0,0,.2,1) infinite}
-@keyframes ping{75%,100%{transform:scale(2.6);opacity:0}}
+/* block marker: same shape as the cursor in the ~/ar logo */
+.pulse{width:7px;height:15px;border-radius:1px;background:var(--accent);flex:0 0 auto}
+.localtime time{
+  font-size:1.06rem;color:var(--text);letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+}
+.lt-meta{
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
+  padding-left:12px;border-left:1px solid var(--line);
+}
+
 h1{
   font-family:var(--font-head);font-weight:700;letter-spacing:-.035em;line-height:1.02;
   font-size:clamp(2.9rem,7.4vw,5.1rem);margin-bottom:20px;
@@ -349,7 +360,11 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 <section class="hero wrap">
   <div class="hero-grid">
     <div>
-      <div class="status"><span class="pulse"></span> Open to interesting work</div>
+      <div class="localtime">
+        <span class="pulse"></span>
+        <time id="localtime"><span id="lt-h">--</span><span class="lt-c">:</span><span id="lt-m">--</span></time>
+        <span class="lt-meta">Dhaka &middot; GMT+6</span>
+      </div>
       <h1>Ashikur<br><span class="grad">Rahman</span></h1>
       <div class="role" id="role"><span class="cursor">|</span></div>
       <p class="bio">
@@ -493,13 +508,12 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--faint);font-s
 <!-- ============ PROJECTS ============ -->
 <section id="projects" class="wrap reveal">
   <div class="eyebrow">03 · Projects</div>
-  <h2 class="title">Things built outside the day job</h2>
+  <h2 class="title">Selected projects</h2>
 
   <div class="cards">
     <article class="card">
       <div class="card-top">
         <h3>The Deltagram</h3>
-        <span class="when">Aug 2025 — Jan 2026</span>
       </div>
       <p>News platform for a Bangladeshi audience, built with a small team. Scheduled article publishing runs on a BullMQ job queue and is still in production today.</p>
       <div class="tags">
@@ -760,6 +774,21 @@ document.querySelectorAll('.more').forEach(function (box) {
     btn.setAttribute('aria-expanded', String(open));
   });
 });
+
+// ---- live Dhaka clock ----
+var ltH = document.getElementById('lt-h'), ltM = document.getElementById('lt-m');
+function tickClock() {
+  var parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit', hour12: false
+  }).formatToParts(new Date());
+  parts.forEach(function (p) {
+    if (p.type === 'hour') ltH.textContent = p.value;
+    if (p.type === 'minute') ltM.textContent = p.value;
+  });
+}
+tickClock();
+setInterval(tickClock, 30000);
+
 
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
